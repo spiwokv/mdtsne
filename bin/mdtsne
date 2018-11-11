@@ -1,0 +1,115 @@
+#!/usr/bin/env python
+
+libnames = [('mdtraj', 'md'), ('numpy', 'np'), ('argparse', 'arg'), ('datetime', 'dt'), ('sys', 'sys')]
+
+for (name, short) in libnames:
+  try:
+    lib = __import__(name)
+  except:
+    print "Library %s is not installed, exiting" % name
+    exit(0)
+  else:
+    globals()[short] = lib
+try:
+  import sklearn as sk
+except:
+  print "Library sklearn is not installed, exiting"
+  exit(0)
+
+import mdtsne
+
+# Parsing command line arguments
+parser = arg.ArgumentParser(description='Barnes-Hut t-Distributed Stochastic Neighbor Embedding (t-SNE) for analysis of molecular dynamics trajectories')
+
+parser.add_argument('-i', dest='infile', default='traj.xtc',
+help='Input trajectory in pdb, xtc, trr, dcd, netcdf or mdcrd, WARNING: the trajectory must contain only atoms to be analysed! All PBC issues must be fixed!')
+
+parser.add_argument('-p', dest='intop', default='top.pdb',
+help='Input topology in pdb, WARNING: the structure must contain only atoms to be analysed!')
+
+parser.add_argument('-o', dest='out', default='output.txt',
+help='Output file name.')
+
+parser.add_argument('-outtype', dest='outtype', default='txt',
+help='Output file type (txt or xvg).')
+
+parser.add_argument('-n', dest='ncomp', default=2, type=int,
+help='Dimension of the embedded space.')
+
+parser.add_argument('-perplex', dest='perplex', default=30, type=int,
+help='Perplexity tunes the balance between global and local features of your data. It should be 5-50.')
+
+parser.add_argument('-niter', dest='niter', default=1000, type=int,
+help='Maximum number of iterations.')
+
+parser.add_argument('-lr', dest='rate', default=200.0, type=float,
+help='Learning rate. Should be 10.0-1000.0.')
+
+parser.add_argument('-min_grad_norm', dest='min_grad_norm', default=1e-7, type=float,
+help='Minimal gradient norm. The optimization will be stopped bellow this threshold.')
+
+parser.add_argument('-metric', dest='metric', default="euclidean", type=str,
+help='Distance metric. Must be available in scipy.spatial.distance.pdist.')
+
+parser.add_argument('-method', dest='method', default="barnes_hut", type=str,
+help='Type of tSNE. Can be "Barnes-Hut" or "exact" (slower).')
+
+parser.add_argument('-early_exaggeration', dest='early_exaggeration', default=12.0, type=float,
+help='Parameter early_exaggeration.')
+
+parser.add_argument('-n_iter_without_progress', dest='n_iter_without_progress', default=300, type=int,
+help='Parameter n_iter_without_progress.')
+
+parser.add_argument('-angle', dest='angle', default=0.5, type=float,
+help='Parameter angle.')
+
+args = parser.parse_args()
+
+infilename = args.infile
+intopname = args.intop
+out = args.out
+outtype = args.outtype
+if outtype == "xvg":
+  if out[-4:]!=".xvg":
+    out = out + ".xvg"
+if outtype == "txt":
+  if out[-4:]!=".txt":
+    out = out + ".txt"
+ncomp = args.ncomp
+perplex = args.perplex
+if perplex > 50:
+  print "WARNING: The value of perplex should be typically 5-50."
+niter = args.niter
+if niter < 250:
+  print "WARNING: Number of iterations should be at least 250."
+rate = args.rate
+if rate < 10.0:
+  print "WARNING: Rate quite low, it should be at least 10-1000."
+if rate > 1000.0:
+  print "WARNING: Rate quite high, it should be at least 10-1000."
+min_grad_norm = args.min_grad_norm
+metric = args.metric
+metrics = ['braycurtis', 'canberra', 'chebyshev', 'cityblock', 'correlation', 'cosine', 'dice', 'euclidean', 'hamming', 'jaccard',
+           'kulsinski', 'mahalanobis', 'matching', 'minkowski', 'rogerstanimoto', 'russellrao', 'seuclidean', 'sokalmichener',
+           'sokalsneath', 'sqeuclidean', 'yule']
+if metric not in metrics:
+  print "ERROR: "+metric+" is not recognized distance metric, try"
+  print "braycurtis, canberra, chebyshev, cityblock, correlation,"
+  print "cosine, dice, euclidean, hamming, jaccard, kulsinski,"
+  print "mahalanobis, matching, minkowski, rogerstanimoto, russellrao,"
+  print "seuclidean, sokalmichener, sokalsneath, sqeuclidean or yule."
+  exit(0)
+method = args.method
+methods = ['barnes_hut', 'exact']
+if method not in methods:
+  print "ERROR: "+method+" is not recognized method, try barnes_hut or exact."
+  exit(0)
+early_exaggeration = args.early_exaggeration
+n_iter_without_progress = args.n_iter_without_progress
+angle = args.angle
+
+mdtsne.domdtsne(infilename, intopname, out, ncomp,
+                perplex, niter, rate, min_grad_norm,
+                metric, method, early_exaggeration,
+                n_iter_without_progress, angle)
+
