@@ -14,7 +14,13 @@ try:
 except:
   print("Library sklearn.manifold is not installed, exiting")
   exit(0)
+try:
+  import sklearn.decomposition as skd
+except:
+  print("Library sklearn.decomposition is not installed, exiting")
+  exit(0)
 
+  
 def domdtsne(infilename, intopname, out='tsne.txt', ncomp=2, skip=1, pcadim=30,
              perplex=30.0, niter=1000, init='random', rate=250.0, min_grad_norm=1e-7,
              metric="euclidean", method="bh_tsne", early_exaggeration=12.0,
@@ -43,10 +49,10 @@ def domdtsne(infilename, intopname, out='tsne.txt', ncomp=2, skip=1, pcadim=30,
   if pcadim>0:
     if pcadim<trajsize[1]:
       print "Runing preliminary PCA"
-      pca = PCA(n_components=pcadim, svd_solver='randomized', random_state=None)
+      pca = skd.PCA(n_components=pcadim, svd_solver='randomized', random_state=None)
       traj2 = pca.fit_transform(traj2).astype(np.float32, copy=False)
     else:
-      print("WARNING: There is no point in doing PCA because the pcadim < 3 x number of atoms")
+      print("WARNING: There is no point in doing PCA because the pcadim > 3 x number of atoms")
       print("         Skipping PCA.")
   
   # Calculating t-SNE
