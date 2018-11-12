@@ -19,6 +19,7 @@ def domdtsne(infilename, intopname, out='tsne.txt', ncomp=2,
              perplex=30.0, niter=1000, rate=250.0, min_grad_norm=1e-7,
              metric="euclidean", method="bh_tsne", early_exaggeration=12.0,
              n_iter_without_progress=300, angle=0.5):
+  # TODO add init !!!!!!!!!!!!!!!!!!!
   # Loading trajectory
   try:
     print("Loading trajectory")
