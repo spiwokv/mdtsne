@@ -15,7 +15,7 @@ except:
   print("Library sklearn.manifold is not installed, exiting")
   exit(0)
 
-def domdtsne(infilename, intopname, out='tsne.txt', ncomp=2, pcadim=30,
+def domdtsne(infilename, intopname, out='tsne.txt', ncomp=2, skip=1, pcadim=30,
              perplex=30.0, niter=1000, init='random', rate=250.0, min_grad_norm=1e-7,
              metric="euclidean", method="bh_tsne", early_exaggeration=12.0,
              n_iter_without_progress=300, angle=0.5):
@@ -33,11 +33,11 @@ def domdtsne(infilename, intopname, out='tsne.txt', ncomp=2, pcadim=30,
     print("%s succesfully loaded and fitted" % traj)
   print("")
   trajsize = traj.xyz.shape
-  traj2 = np.zeros((trajsize[0], trajsize[1]*3))
+  traj2 = np.zeros((int(float(trajsize[0])/float(skip)), trajsize[1]*3))
   for i in range(trajsize[1]):
-    traj2[:,3*i]   = traj.xyz[:,i,0]
-    traj2[:,3*i+1] = traj.xyz[:,i,1]
-    traj2[:,3*i+2] = traj.xyz[:,i,2]
+    traj2[:,3*i]   = traj.xyz[:,i*skip,0]
+    traj2[:,3*i+1] = traj.xyz[:,i*skip,1]
+    traj2[:,3*i+2] = traj.xyz[:,i*skip,2]
     
   # Runing preliminary PCA
   if pcadim>0:
