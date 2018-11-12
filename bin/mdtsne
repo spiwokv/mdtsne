@@ -36,6 +36,9 @@ help='Output file type (txt or xvg).')
 parser.add_argument('-n', dest='ncomp', default=2, type=int,
 help='Dimension of the embedded space.')
 
+parser.add_argument('-skip', dest='skip', default=1, type=int,
+help='Use every i-th frame (1 - whole trajectory).')
+
 parser.add_argument('-pcadim', dest='pcadim', default=30, type=int,
 help='Dimension of the space preliminary reduced by PCA (0 - no PCA).')
 
@@ -82,6 +85,12 @@ if outtype == "txt":
   if out[-4:]!=".txt":
     out = out + ".txt"
 ncomp = args.ncomp
+skip = args.skip
+if skip==0:
+  skip = 1
+if skip<0:
+  print "ERROR: Cannot understand skip="+skip+", skip must be positive."
+  exit(0)
 perplex = args.perplex
 if perplex > 50:
   print "WARNING: The value of perplex should be typically 5-50."
@@ -119,7 +128,7 @@ early_exaggeration = args.early_exaggeration
 n_iter_without_progress = args.n_iter_without_progress
 angle = args.angle
 
-mdtsne.domdtsne(infilename, intopname, out, ncomp, pcadim,
+mdtsne.domdtsne(infilename, intopname, out, ncomp, skip, pcadim,
                 perplex, niter, init, rate, min_grad_norm,
                 metric, method, early_exaggeration,
                 n_iter_without_progress, angle)
