@@ -85,6 +85,12 @@ if outtype == "txt":
   if out[-4:]!=".txt":
     out = out + ".txt"
 ncomp = args.ncomp
+pcadim = args.pcadim
+if pcadim < 10:
+  print "WARNING: The value of pcadim should be typically 10 - 3 x number of atoms."
+if pcadim <= ncomp:
+  print "ERROR: The value of pcadim must be > ncomp."
+  exit(0)
 skip = args.skip
 if skip==0:
   skip = 1
