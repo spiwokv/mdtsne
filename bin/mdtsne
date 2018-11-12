@@ -36,6 +36,9 @@ help='Output file type (txt or xvg).')
 parser.add_argument('-n', dest='ncomp', default=2, type=int,
 help='Dimension of the embedded space.')
 
+parser.add_argument('-pcadim', dest='pcadim', default=30, type=int,
+help='Dimension of the space preliminary reduced by PCA (0 - no PCA).')
+
 parser.add_argument('-perplex', dest='perplex', default=30, type=int,
 help='Perplexity tunes the balance between global and local features of your data. It should be 5-50.')
 
@@ -116,7 +119,7 @@ early_exaggeration = args.early_exaggeration
 n_iter_without_progress = args.n_iter_without_progress
 angle = args.angle
 
-mdtsne.domdtsne(infilename, intopname, out, ncomp,
+mdtsne.domdtsne(infilename, intopname, out, ncomp, pcadim,
                 perplex, niter, init, rate, min_grad_norm,
                 metric, method, early_exaggeration,
                 n_iter_without_progress, angle)
