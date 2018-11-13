@@ -18,5 +18,13 @@ Required Python libraries:
 - datetime
 
 ## Usage
+```
+mdtsne -i traj.xtc -p beforemd.pdb -o tsne.txt
+```
+The trajectory and the topology:
+ - must contain only atoms intended for analysis
+ - PBC issues must be avoided
+
+For other options see `mdtsne -h`.
 
 
