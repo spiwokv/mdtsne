@@ -1,20 +1,15 @@
 #!/usr/bin/env python
 
-libnames = [('mdtraj', 'md'), ('numpy', 'np'), ('argparse', 'arg'), ('datetime', 'dt'), ('sys', 'sys')]
+libnames = [('mdtraj', 'md'), ('numpy', 'np'), ('sklearn', 'sk'), ('argparse', 'arg'), ('datetime', 'dt'), ('sys', 'sys')]
 
 for (name, short) in libnames:
   try:
     lib = __import__(name)
   except:
-    print "Library %s is not installed, exiting" % name
+    print('Library %s is not installed, exiting' % name)
     exit(0)
   else:
     globals()[short] = lib
-try:
-  import sklearn as sk
-except:
-  print "Library sklearn is not installed, exiting"
-  exit(0)
 
 import mdtsne
 
@@ -82,48 +77,48 @@ intopname = args.intop
 out = args.out
 
 outtype = args.outtype
-if outtype == "xvg":
-  if out[-4:]!=".xvg":
-    out = out + ".xvg"
-if outtype == "txt":
-  if out[-4:]!=".txt":
-    out = out + ".txt"
+if outtype == 'xvg':
+  if out[-4:]!='.xvg':
+    out = out + '.xvg'
+if outtype == 'txt':
+  if out[-4:]!='.txt':
+    out = out + '.txt'
 
 ncomp = args.ncomp
 
 pcadim = args.pcadim
 if pcadim < 10:
-  print("WARNING: The value of pcadim should be typically 10 - 3 x number of atoms.")
+  print('WARNING: The value of "pcadim" should be typically 10 - 3 x number of atoms.')
 if pcadim <= ncomp:
-  print("ERROR: The value of pcadim must be > ncomp.")
+  print('ERROR: The value of "pcadim" must be higher than "ncomp".')
   exit(0)
 
 skip = args.skip
 if skip==0:
   skip = 1
 if skip<0:
-  print("ERROR: Cannot understand skip="+skip+", skip must be positive.")
+  print('ERROR: Cannot understand "skip='+skip+'", "skip" must be positive.')
   exit(0)
 
 perplex = args.perplex
 if perplex > 50:
-  print("WARNING: The value of perplex should be typically 5-50.")
+  print('WARNING: The value of "perplex" should be typically 5-50.')
 
 niter = args.niter
 if niter < 250:
-  print("WARNING: Number of iterations should be at least 250.")
+  print('WARNING: Number of iterations should be at least 250.')
 
 init = args.init
-inits = ["random", "pca"]
+inits = ['random', 'pca']
 if init not in inits:
-  print("ERROR: "+init+" is not recognized initialization, try random or pca.")
+  print('ERROR: "'+init+'" is not recognized initialization, try "random" or "pca".')
   exit(0)
 
 rate = args.rate
 if rate < 10.0:
-  print("WARNING: Rate quite low, it should be at least 10-1000.")
+  print('WARNING: Rate quite low, it should be at least 10-1000.')
 if rate > 1000.0:
-  print("WARNING: Rate quite high, it should be at least 10-1000.")
+  print('WARNING: Rate quite high, it should be at least 10-1000.')
 
 min_grad_norm = args.min_grad_norm
 
@@ -132,17 +127,17 @@ metrics = ['braycurtis', 'canberra', 'chebyshev', 'cityblock', 'correlation', 'c
            'kulsinski', 'mahalanobis', 'matching', 'minkowski', 'rogerstanimoto', 'russellrao', 'seuclidean', 'sokalmichener',
            'sokalsneath', 'sqeuclidean', 'yule']
 if metric not in metrics:
-  print("ERROR: "+metric+" is not recognized distance metric, try")
-  print("braycurtis, canberra, chebyshev, cityblock, correlation,")
-  print("cosine, dice, euclidean, hamming, jaccard, kulsinski,")
-  print("mahalanobis, matching, minkowski, rogerstanimoto, russellrao,")
-  print("seuclidean, sokalmichener, sokalsneath, sqeuclidean or yule.")
+  print('ERROR: "'+metric+'" is not recognized distance metric, try')
+  print('"braycurtis", "canberra", "chebyshev", "cityblock", "correlation",')
+  print('"cosine", "dice", "euclidean", "hamming", "jaccard", "kulsinski",')
+  print('"mahalanobis", "matching", "minkowski", "rogerstanimoto", "russellrao",')
+  print('"seuclidean", "sokalmichener", "sokalsneath", "sqeuclidean" or "yule".')
   exit(0)
 
 method = args.method
 methods = ['barnes_hut', 'exact']
 if method not in methods:
-  print("ERROR: "+method+" is not recognized method, try barnes_hut or exact.")
+  print('ERROR: "'+method+'" is not recognized method, try "barnes_hut" or "exact".')
   exit(0)
 
 early_exaggeration = args.early_exaggeration
