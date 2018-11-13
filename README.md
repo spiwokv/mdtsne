@@ -11,7 +11,11 @@ sudo pip install .
 ```
 
 ## Requirements
-Required libraries:
+Required Python libraries:
 - mdtraj
 - sklearn
+- numpy
+- datetime
+
+
 
