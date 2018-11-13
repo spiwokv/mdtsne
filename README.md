@@ -10,3 +10,8 @@ cd mdtsne
 sudo pip install .
 ```
 
+## Requirements
+Required libraries:
+- mdtraj
+- sklearn
+
