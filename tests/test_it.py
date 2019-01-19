@@ -1,7 +1,6 @@
 import pytest
 import mdtraj as md
 import numpy as np
-import keras as krs
 import argparse as arg
 import datetime as dt
 import sys
