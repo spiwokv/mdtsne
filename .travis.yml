@@ -19,8 +19,8 @@ install:
   - conda info -a
   - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION pytest pandas
   - source activate test-environment
-  - pip install --only-binary=numpy numpy sklearn
-  - conda install mkl mkl-service
+  - pip install --only-binary=numpy numpy cython sklearn
+  #- conda install mkl mkl-service
   - export LD_LIBRARY_PATH=$HOME/miniconda/envs/test-environment/lib/:$LD_LIBRARY_PATH
   - if [[ "$TRAVIS_PYTHON_VERSION" == "2.7" ]]; then
       conda install pil;
@@ -31,13 +31,13 @@ install:
   - pip install -e .[tests]
   - export CORE_CHANGED=False;
   - export APP_CHANGED=False;
-  - rm -rf ~/mpi
-  - mkdir ~/mpi
-  - pushd ~/mpi
-  - wget http://cntk.ai/PythonWheel/ForKeras/depends/openmpi_1.10-3.zip
-  - unzip ./openmpi_1.10-3.zip
-  - sudo dpkg -i openmpi_1.10-3.deb
-  - popd
+  #- rm -rf ~/mpi
+  #- mkdir ~/mpi
+  #- pushd ~/mpi
+  #- wget http://cntk.ai/PythonWheel/ForKeras/depends/openmpi_1.10-3.zip
+  #- unzip ./openmpi_1.10-3.zip
+  #- sudo dpkg -i openmpi_1.10-3.deb
+  #- popd
 
 script:
   - export MKL_THREADING_LAYER="GNU"
