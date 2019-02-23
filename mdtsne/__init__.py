@@ -62,16 +62,16 @@ def domdtsne(infilename, intopname, out='tsne.txt', ncomp=2, skip=1, pcadim=30,
                       min_grad_norm=min_grad_norm, metric=metric, init="random", method=method,
                       angle=angle, verbose=1).fit(traj2)
   embeddings = tsnemodel.embedding_
-  kldivedgence = tsnemodel.kl_divergence_
-  from sklearn.manifold.t_sne import _joint_probabilities
-  from sklearn.metrics import pairwise_distances
-  if metric == "euclidean":
-    distances = pairwise_distances(traj2, metric=metric, squared=True)
-  P = _joint_probabilities(distances,perplex,0)
-  pps = open("pps.txt", "w")
-  for pp in P:
-    pps.write("%25.20f\n" % pp)
-  pps.close()
+  #kldivedgence = tsnemodel.kl_divergence_
+  #from sklearn.manifold.t_sne import _joint_probabilities
+  #from sklearn.metrics import pairwise_distances
+  #if metric == "euclidean":
+  #  distances = pairwise_distances(traj2, metric=metric, squared=True)
+  #P = _joint_probabilities(distances,perplex,0)
+  #pps = open("pps.txt", "w")
+  #for pp in P:
+  #  pps.write("%25.20f\n" % pp)
+  #pps.close()
 
   # Writing t-SNE embeddings
   print("Writing t-SNE embeddings into %s" % out)
