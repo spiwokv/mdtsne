@@ -62,7 +62,7 @@ def domdtsne(infilename, intopname, out='tsne.txt', ncomp=2, skip=1, pcadim=30,
                       min_grad_norm=min_grad_norm, metric=metric, init="random", method=method,
                       angle=angle, verbose=1).fit(traj2)
   embeddings = tsnemodel.embedding_
-  #kldivedgence = tsnemodel.kl_divergence_
+  kldivedgence = tsnemodel.kl_divergence_
   #from sklearn.manifold.t_sne import _joint_probabilities
   #from sklearn.metrics import pairwise_distances
   #if metric == "euclidean":
