@@ -48,7 +48,7 @@ def domdtsne(infilename, intopname, out='tsne.txt', ncomp=2, skip=1, pcadim=30,
   # Runing preliminary PCA
   if pcadim>0:
     if pcadim<trajsize[1]:
-      print "Runing preliminary PCA"
+      print("Runing preliminary PCA")
       pca = skd.PCA(n_components=pcadim, svd_solver='randomized', random_state=None)
       traj2 = pca.fit_transform(traj2).astype(np.float32, copy=False)
     else:
@@ -56,7 +56,7 @@ def domdtsne(infilename, intopname, out='tsne.txt', ncomp=2, skip=1, pcadim=30,
       print("         Skipping PCA.")
   
   # Calculating t-SNE
-  print "Caclulating t-SNE"
+  print("Caclulating t-SNE")
   tsnemodel = sk.TSNE(n_components=ncomp, perplexity=perplex, early_exaggeration=early_exaggeration,
                       learning_rate=rate, n_iter=niter, n_iter_without_progress=n_iter_without_progress,
                       min_grad_norm=min_grad_norm, metric=metric, init="random", method=method,
