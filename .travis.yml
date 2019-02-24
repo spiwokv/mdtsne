@@ -27,10 +27,12 @@ install:
       conda install Pillow;
     fi
   - pip install argparse
+  - pip install codecov
   - pip install -e .[tests]
   - export CORE_CHANGED=False;
   - export APP_CHANGED=False;
 
 script:
   - PYTHONPATH=$PWD:$PYTHONPATH travis_wait 30 py.test tests;
+  - codecov
 
