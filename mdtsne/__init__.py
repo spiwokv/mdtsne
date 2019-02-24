@@ -40,10 +40,11 @@ def domdtsne(infilename, intopname, out='tsne.txt', ncomp=2, skip=1, pcadim=30,
   print("")
   trajsize = traj.xyz.shape
   traj2 = np.zeros((int(float(trajsize[0])/float(skip)), trajsize[1]*3))
-  for i in range(trajsize[1]):
-    traj2[:,3*i]   = traj.xyz[:,i*skip,0]
-    traj2[:,3*i+1] = traj.xyz[:,i*skip,1]
-    traj2[:,3*i+2] = traj.xyz[:,i*skip,2]
+  for i in range(int(float(trajsize[0])/float(skip))):
+    for j in range(trajsize[1]):
+      traj2[i,3*j]   = traj.xyz[i*skip,j,0]
+      traj2[i,3*j+1] = traj.xyz[i*skip,j,1]
+      traj2[i,3*j+2] = traj.xyz[i*skip,j,2]
     
   # Runing preliminary PCA
   if pcadim>0:
@@ -88,14 +89,14 @@ def domdtsne(infilename, intopname, out='tsne.txt', ncomp=2, skip=1, pcadim=30,
     ofile.write("@ title \"t-SNE embeddings of trajectory\"\n")
     for j in range(ncomp):
       ofile.write("@ xaxis  label \"low-dimensional embedding %i\"\n" % (j+1))
-    for i in range(trajsize[0]):
+    for i in range(int(float(trajsize[0])/float(skip))):
       for j in range(ncomp):
         ofile.write("%f " % embeddings[i,j])
       ofile.write("\n")
     ofile.close()
   else:
     ofile = open(out, "w")
-    for i in range(trajsize[0]):
+    for i in range(int(float(trajsize[0])/float(skip))):
       for j in range(ncomp):
         ofile.write("%f " % embeddings[i,j])
       ofile.write("\n")
