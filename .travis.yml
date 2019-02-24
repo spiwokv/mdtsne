@@ -32,5 +32,5 @@ install:
   - export APP_CHANGED=False;
 
 script:
-  - travis_wait 30 PYTHONPATH=$PWD:$PYTHONPATH py.test tests;
+  - PYTHONPATH=$PWD:$PYTHONPATH travis_wait 30 py.test tests;
 
