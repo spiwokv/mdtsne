@@ -1,4 +1,6 @@
 [![Build Status](https://travis-ci.org/spiwokv/mdtsne.svg?branch=master)](https://travis-ci.org/spiwokv/mdtsne)
+[![codecov](https://codecov.io/gh/spiwokv/mdtsne/branch/master/graph/badge.svg)](https://codecov.io/gh/spiwokv/mdtsne/)
+
 
 # mdtsne
 
