@@ -15,7 +15,7 @@ def test_it():
   emb, kld = mdtsne.domdtsne(infilename=myinfilename,
                              intopname=myintopname,
                              out='test1.txt', ncomp=3, skip=1, pcadim=20,
-                             perplex=50, niter=10000, init="random",
+                             perplex=50, niter=1000, init="random",
                              rate=250.0, min_grad_norm=1e-7,
                              metric="euclidean", method="barnes_hut", early_exaggeration=12.0,
                              n_iter_without_progress=300, angle=0.5)

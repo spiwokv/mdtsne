@@ -104,3 +104,21 @@ def domdtsne(infilename, intopname, out='tsne.txt', ncomp=2, skip=1, pcadim=30,
 
   return embeddings, kldivedgence
 
+def domdtsneskree(skreename, infilename, intopname, skreeout='tsne.txt', skreencomp=2, skip=1, pcadim=30,
+                  perplex=30.0, niter=1000, init='random', rate=250.0, min_grad_norm=1e-7,
+                  metric="euclidean", method="barnes_hut", early_exaggeration=12.0,
+                  n_iter_without_progress=300, angle=0.5):
+  print("Calculating tSNE for 1,... %i embeddings" % skreencomp)
+  if skreename[-4:] != ".txt":
+    skreename = skreename + ".txt"
+  print("KL-divergences will be stored in %s." % skreename)
+  skreefile = open(skreename, "w")
+  for idim in range(skreencomp):
+    outname = "dim"+str(idim+1)+"_"+skreeout
+    emb, kld = domdtsne(infilename, intopname, outname, idim+1, skip, pcadim,
+                        perplex, niter, init, rate, min_grad_norm,
+                        metric, method, early_exaggeration,
+                        n_iter_without_progress, angle)
+    skreefile.write("%i %f\n" % (idim+1, kld))
+  skreefile.close()
+

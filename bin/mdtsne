@@ -67,6 +67,9 @@ help='Parameter n_iter_without_progress (default 300).')
 parser.add_argument('-angle', dest='angle', default=0.5, type=float,
 help='Parameter angle (default 0.5).')
 
+parser.add_argument('-skree', dest='skree', default='',
+help='Name of file to store KL-divergences for 1, 2, ... n dimensions, where n is set by -n (SLOW!)')
+
 args = parser.parse_args()
 
 # Checking command line arguments
@@ -146,9 +149,17 @@ n_iter_without_progress = args.n_iter_without_progress
 
 angle = args.angle
 
+skree = args.skree
+
 # Doing t-SNE
-mdtsne.domdtsne(infilename, intopname, out, ncomp, skip, pcadim,
-                perplex, niter, init, rate, min_grad_norm,
-                metric, method, early_exaggeration,
-                n_iter_without_progress, angle)
+if skree!='':
+  mdtsne.domdtsneskree(skree, infilename, intopname, out, ncomp, skip, pcadim,
+                       perplex, niter, init, rate, min_grad_norm,
+                       metric, method, early_exaggeration,
+                       n_iter_without_progress, angle)
+else:
+  mdtsne.domdtsne(infilename, intopname, out, ncomp, skip, pcadim,
+                  perplex, niter, init, rate, min_grad_norm,
+                  metric, method, early_exaggeration,
+                  n_iter_without_progress, angle)
 
