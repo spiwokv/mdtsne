@@ -37,7 +37,7 @@ usage: mdtsne [-h] [-i INFILE] [-p INTOP] [-o OUT] [-outtype OUTTYPE]
               [-min_grad_norm MIN_GRAD_NORM] [-metric METRIC] [-method METHOD]
               [-early_exaggeration EARLY_EXAGGERATION]
               [-n_iter_without_progress N_ITER_WITHOUT_PROGRESS]
-              [-angle ANGLE]
+              [-angle ANGLE] [-skree SKREE]
 
 Barnes-Hut t-Distributed Stochastic Neighbor Embedding (t-SNE) for analysis of
 molecular dynamics trajectories
@@ -67,12 +67,15 @@ optional arguments:
                         stopped bellow this threshold (default 1e-7).
   -metric METRIC        Distance metric. Must be available in
                         scipy.spatial.distance.pdist (default "euclidean").
-  -method METHOD        Type of tSNE. Can be "Barnes-Hut" (default) or "exact"
-                        (slower).
+  -method METHOD        Type of t-SNE. Can be "Barnes-Hut" (default) or
+                        "exact" (slower).
   -early_exaggeration EARLY_EXAGGERATION
                         Parameter early_exaggeration (default 12.0).
   -n_iter_without_progress N_ITER_WITHOUT_PROGRESS
                         Parameter n_iter_without_progress (default 300).
   -angle ANGLE          Parameter angle (default 0.5).
+  -skree SKREE          Name of file to store KL-divergences for 1, 2, ... n
+                        dimensions, where n is set by -n (SLOW!)
+
 ```
 
