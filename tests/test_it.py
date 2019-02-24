@@ -19,7 +19,7 @@ def test_it():
                              rate=250.0, min_grad_norm=1e-7,
                              metric="euclidean", method="barnes_hut", early_exaggeration=12.0,
                              n_iter_without_progress=300, angle=0.5)
-  assert(kld > 1.28 and kld < 1.30)
+  assert(kld > 0.9 and kld < 1.0)
 
 if __name__ == '__main__':
   pytest.main([__file__])
