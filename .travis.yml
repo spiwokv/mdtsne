@@ -33,8 +33,8 @@ install:
   - export APP_CHANGED=False;
 
 script:
-  - PYTHONPATH=$PWD:$PYTHONPATH travis_wait 30 py.test tests;
+  - PYTHONPATH=$PWD:$PYTHONPATH travis_wait 30 py.test --cov=mdtsne tests;
   
 after_success:
-  - codecov
+  - bash <(curl -s https://codecov.io/bash) -t ${CODECOV_TOKEN}
 
