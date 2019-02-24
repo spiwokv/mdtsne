@@ -34,5 +34,7 @@ install:
 
 script:
   - PYTHONPATH=$PWD:$PYTHONPATH travis_wait 30 py.test tests;
+  
+after_success:
   - codecov
 
