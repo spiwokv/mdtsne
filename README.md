@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/spiwokv/mdtsne.svg?branch=master)](https://travis-ci.org/spiwokv/mdtsne)
+
 # mdtsne
 
 The package `mdtsne` provides Barnes-Hut t-Distributed Stochastic Neighbor Embedding (t-SNE)
